@@ -159,6 +159,47 @@ setInterval(() => {
     <p class="footer">
         Building in public from Gauteng. Founder of Mavis Cares & Nurses. Open to junior frontend roles.
     </p>
+    <!-- Project #8: Live SA Time Clock -->
+<section id="sa-clock">
+  <h3>🇿🇦 South Africa</h3>
+  <p id="sa-time">Loading time...</p>
+  <p id="sa-date"></p>
+  <p id="loadshedding-tip"></p>
+</section>
+
+<style>
+#sa-clock {
+  background: #0f172a; color: #f1f5f9; padding: 1.5rem; border-radius: 12px;
+  margin: 2rem 0; text-align: center;
+}
+#sa-clock h3 { margin: 0 0 0.5rem; font-size: 1.25rem; }
+#sa-time { font-size: 2rem; font-weight: bold; margin: 0.5rem 0; font-family: monospace; }
+#sa-date { margin: 0; opacity: 0.8; }
+#loadshedding-tip { margin: 0.5rem 0 0; color: #fbbf24; font-size: 0.9rem; min-height: 20px; }
+</style>
+
+<script>
+function updateSATime() {
+  const now = new Date();
+  const saTime = new Date(now.toLocaleString("en-US", {timeZone: "Africa/Johannesburg"}));
+  
+  const timeStr = saTime.toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const dateStr = saTime.toLocaleDateString('en-ZA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  
+  document.getElementById('sa-time').textContent = timeStr;
+  document.getElementById('sa-date').textContent = dateStr;
+  
+  const hour = saTime.getHours();
+  const tip = document.getElementById('loadshedding-tip');
+  if (hour >= 18 && hour < 20) {
+    tip.textContent = "⚡ Peak hours: Keep devices charged";
+  } else {
+    tip.textContent = "";
+  }
+}
+updateSATime();
+setInterval(updateSATime, 1000);
+</script>
     <!-- Personal WhatsApp Button -->
 <a href="https://wa.me/27616185080?text=Hi%20Lorraine,%20I%20saw%20your%20portfolio" 
    target="_blank" 
