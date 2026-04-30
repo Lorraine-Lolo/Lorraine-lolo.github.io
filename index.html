@@ -78,7 +78,42 @@
         <span class="tag">Founder</span>
         <span class="tag">GA4</span>
     </p>
+<!-- Project #7: Live SA Facts Ticker -->
+<section id="sa-facts">
+  <h3>🇿🇦 Did You Know?</h3>
+  <p id="fact-text">South Africa has 11 official languages, the most of any country.</p>
+</section>
 
+<style>
+#sa-facts {
+  background: #f1f5f9; padding: 1.5rem; border-radius: 12px;
+  margin: 2rem 0; text-align: center; border: 1px solid #e2e8f0;
+}
+#sa-facts h3 { margin: 0 0 0.5rem; color: #0f172a; font-size: 1.25rem; }
+#fact-text { transition: opacity 0.3s ease; min-height: 48px; color: #334155; margin: 0; }
+</style>
+
+<script>
+const facts = [
+  "South Africa has 11 official languages, the most of any country.",
+  "Table Mountain is one of the oldest mountains in the world - 600 million years old.",
+  "SA is the only country with 3 capital cities: Pretoria, Cape Town, Bloemfontein.",
+  "The Kruger National Park is larger than Israel.",
+  "South Africa hosts the world’s largest individually timed cycle race: Cape Town Cycle Tour.",
+  "Boulders Beach is home to 3,000+ African penguins.",
+  "The world’s largest diamond, the Cullinan, was found here in 1905.",
+  "SA generates 2/3 of Africa’s electricity.",
+  "The Bloukrans Bridge has the world’s highest commercial bungee jump at 216m.",
+  "Rooibos tea only grows in the Cederberg region of the Western Cape."
+];
+let index = 0;
+const factText = document.getElementById('fact-text');
+setInterval(() => {
+  index = (index + 1) % facts.length;
+  factText.style.opacity = 0;
+  setTimeout(() => { factText.textContent = facts[index]; factText.style.opacity = 1; }, 300);
+}, 8000);
+</script>
     <h2>Featured Projects</h2>
     
     <h3>Loadshedding Checker - #100DaysOfCode Project #5</h3>
