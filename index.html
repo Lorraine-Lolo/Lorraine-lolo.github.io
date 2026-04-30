@@ -5,16 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lorraine Marange | Web Developer & Founder</title>
     <style>
-        body { 
+        body
+        {
+                background: var(--bg);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
             font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; 
             line-height: 1.7; 
             font-size: 18px;
             max-width: 680px; 
             margin: 0 auto; 
             padding: 24px 20px 60px; 
-            color: #1a1a1a; 
-            background: #fff;
-        }
+            }
+
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --card: #f5f5f5;
+}
+
+[data-theme="dark"] {
+  --bg: #0d1117;
+  --text: #e6edf3;
+  --card: #161b22;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+    }
         h1 { 
             font-size: 2.2rem; 
             margin: 0 0 8px 0; 
@@ -63,10 +83,24 @@
             h1 { font-size: 2rem; }
             h2 { font-size: 1.4rem; }
         }
+      #sa-clock, #theme-toggle {
+  background: var(--card);
+  color: var(--text);
+}
+
+#theme-toggle {
+  border: 1px solid var(--text);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 10px 0;
+}  
     </style>
 </head>
 <body>
     <h1>Lorraine Marange</h1>
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙 Dark</button>
     <p><strong>Web Developer & Founder in Mid-Ennerdale, Gauteng 🇿🇦</strong><br>
     Professional Caregiver and Online English Teacher based in Mid-Ennerdale. I build AI apps and websites with the same precision I use with clients and students.
     
@@ -207,5 +241,20 @@ setInterval(updateSATime, 1000);
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
        width="60" height="60" alt="Chat with Lorraine on WhatsApp">
 </a>
+    <!-- Project #9: Dark Mode Toggle -->
+<script>
+const toggle = document.getElementById('theme-toggle');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+const currentTheme = localStorage.getItem('theme') || (prefersDark.matches ? 'dark' : 'light');
+document.documentElement.setAttribute('data-theme', currentTheme);
+toggle.textContent = currentTheme === 'dark' ? '☀️ Light' : '🌙 Dark';
+toggle.addEventListener('click', () => {
+  let theme = document.documentElement.getAttribute('data-theme');
+  theme = theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  toggle.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+});
+</script>
 </body>
 </html>
