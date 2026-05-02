@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Loadshedding - Mid-Ennerdale</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: system-ui; background: #0f172a; color: #fff; padding: 20px; text-align: center; }
+    .card { background: #1e293b; padding: 24px; border-radius: 16px; max-width: 400px; margin: 30px auto; }
+    .status { font-size: 26px; font-weight: 700; margin: 16px 0; }
+    .on { color: #22c55e; }
+    .off { color: #ef4444; }
+    .loading { color: #f59e0b; }
+    .next { font-size: 15px; opacity: 0.9; margin-top: 8px; }
+    button { background: #3b82f6; color: white; border: none; padding: 12px 24px; 
+             border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>🔌 Mid-Ennerdale Loadshedding</h2>
+    <div id="status" class="status loading">Loading...</div>
+    <div id="next" class="next"></div>
+    <button onclick="checkLoadshedding()">Refresh</button>
+    <p style="font-size:12px; opacity:0.6; margin-top:20px">Live EskomSePush API</p>
+  </div>
+
+  <script>
+    const TOKEN = '650F94AC-DFE94DBB-9783CDC1-DD518226';
+    const AREA = 'eskde-10-midennerdale';
+
+    async function checkLoadshedding() {
+      const statusEl = document.getElementById('status');
+      const nextEl = document.getElementById('next');
+      statusEl.className = 'status loading';
+      statusEl.textContent = 'Checking...';
+      nextEl.textContent = '';
+
+      try {
+        // Using allorigins proxy to bypass CORS on GitHub Pages
+        const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://developer.sepush.co.za/business/2.0/area?id=${AREA}`)}`;
+        const res = await fetch(url, {
+          headers: { 'Authorization': `Token ${TOKEN}` }
+        });
+        
+        if (!res.ok) throw new Error('Proxy failed');
+        const wrapper = await res.json();
+        const data = JSON.parse(wrapper.contents);
+        
+        const now = new Date();
+        const current = data.events.find(e => {
+          const start = new Date(e.start);
+          const end = new Date(e.end);
+          return now >= start && now <= end;
+        });
+
+        if (current) {
+          statusEl.className = 'status off';
+          statusEl.textContent = '⚠️ POWER IS OFF';
+          nextEl.textContent = `Stage ${current.note} | Ends ${new Date(current.end).toLocaleTimeString('en-ZA', {hour: '2-digit', minute:'2-digit'})}`;
+        } else {
+          statusEl.className = 'status on';
+          statusEl.textContent = '✅ POWER IS ON';
+          const next = data.events.find(e => new Date(e.start) > now);
+          nextEl.textContent = next ? `Next: ${new Date(next.start).toLocaleString('en-ZA', {weekday:'short', hour:'2-digit', minute:'2-digit'})}` : 'No loadshedding scheduled';
+        }
+
+      } catch (err) {
+        statusEl.className = 'status off';
+        statusEl.textContent = '❌ CAN’T CONNECT';
+        nextEl.textContent = 'API limit or CORS blocked. Try refresh.';
+      }
+    }
+    
+    checkLoadshedding();
+  </script>
+</body>
+</html>
