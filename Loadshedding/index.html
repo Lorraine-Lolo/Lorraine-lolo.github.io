@@ -36,15 +36,15 @@
       nextEl.textContent = '';
 
       try {
-        // Using allorigins proxy to bypass CORS on GitHub Pages
-        const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://developer.sepush.co.za/business/2.0/area?id=${AREA}`)}`;
-        const res = await fetch(url, {
-          headers: { 'Authorization': `Token ${TOKEN}` }
-        });
-        
-        if (!res.ok) throw new Error('Proxy failed');
-        const wrapper = await res.json();
-        const data = JSON.parse(wrapper.contents);
+      
+  // Using corsproxy.io - more reliable than allorigins
+  const url = `https://corsproxy.io/?${encodeURIComponent(`https://developer.sepush.co.za/business/2.0/area?id=${AREA}`)}`;
+  const res = await fetch(url, {
+    headers: { 'Authorization': `Token ${TOKEN}` }
+  });
+  
+  if (!res.ok) throw new Error('Proxy failed');
+  const data = await res.json();
         
         const now = new Date();
         const current = data.events.find(e => {
