@@ -64,14 +64,16 @@ const url = `https://corsproxy.io/?${encodeURIComponent(`https://developer.sepus
           nextEl.textContent = next ? `Next: ${new Date(next.start).toLocaleString('en-ZA', {weekday:'short', hour:'2-digit', minute:'2-digit'})}` : 'No loadshedding scheduled';
         }
 
-      } catch (err) {
-        statusEl.className = 'status off';
-        statusEl.textContent = '❌ CAN’T CONNECT';
-        nextEl.textContent = 'API limit or CORS blocked. Try refresh.';
-      }
+        } catch (err) {
+    statusEl.className = 'status off';
+    statusEl.textContent = 'Error: ' + err.message;
+    nextEl.textContent = 'API failed - check area ID';
+    console.log('Full error:', err);
+  }
     }
-    
-    checkLoadshedding();
+        checkLoadshedding();
   </script>
 </body>
+</html>
+    
 </html>
