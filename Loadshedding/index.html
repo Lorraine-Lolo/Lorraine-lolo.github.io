@@ -37,9 +37,9 @@
 
       try {
       
-  // Using corsproxy.io - more reliable than allorigins
-  const url = `https://corsproxy.io/?${encodeURIComponent('https://developer.sepush.co.za/business/3.0/area?id=' + AREA)}`;
-  const res = await fetch(url, {
+  const TOKEN = '650F94AC-DFE94DBB-9783CDC1-DD518226';
+const AREA = 'mid-ennderdale';
+const url = `https://corsproxy.io/?${encodeURIComponent(`https://developer.sepush.co.za/business/3.0/area?id=${AREA}`)}`;
     headers: { 'Authorization': `Token ${TOKEN}` }
   });
   
