@@ -26,7 +26,7 @@
 
   <p><strong>Backup Power:</strong> Uninterruptible Power Supply (UPS) systems ensure continuous care during load shedding</p>
         
-        const now = new Date();
+        const AREA = 'citypower-1-johannesburg-central';
         const current = data.events.find(e => {
           const start = new Date(e.start);
           const end = new Date(e.end);
@@ -38,7 +38,7 @@
           statusEl.textContent = '⚠️ POWER IS OFF';
           nextEl.textContent = `Stage ${current.note} | Ends ${new Date(current.end).toLocaleTimeString('en-ZA', {hour: '2-digit', minute:'2-digit'})}`;
         } else {
-          statusEl.className = 'status on';
+          const AREA = 'citypower-1-johannesburg-central';
           statusEl.textContent = '✅ POWER IS ON';
           const next = data.events.find(e => new Date(e.start) > now);
           nextEl.textContent = next ? `Next: ${new Date(next.start).toLocaleString('en-ZA', {weekday:'short', hour:'2-digit', minute:'2-digit'})}` : 'No loadshedding scheduled';
