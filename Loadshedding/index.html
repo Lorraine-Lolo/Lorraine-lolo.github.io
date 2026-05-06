@@ -34,21 +34,20 @@
     statusEl.className = 'status-off';
     nextEl.textContent = 'Could not load schedule';
   });
-        const current = data.events.find(e => {
-          const start = new Date(e.start);
-          const end = new Date(e.end);
+        
         <script>
 const statusEl = document.getElementById('status');
 const nextEl = document.getElementById('next');
 
-fetch('https://api.citypower.co.za/schedule/v2?area=johannesburg-central')
+fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.citypower.co.za/schedule/v2?area=johannesburg-central'))
 .then(response => response.json())
 .then(data => {
-    console.log('CityPower data:', data);
-    if (data && data.schedule && data.schedule.length > 0) {
+    const actualData = JSON.parse(data.contents);
+    console.log('CityPower data:', actualData);
+    if (actualData && actualData.schedule && actualData.schedule.length > 0) {
       statusEl.textContent = '✅ POWER ON';
       statusEl.className = 'status-on';
-      const next = data.schedule[0];
+      const next = actualData.schedule[0];
       nextEl.textContent = next? `Next outage: ${next.start} - ${next.end}` : 'No scheduled outages';
     } else {
       statusEl.textContent = '⚠️ POWER OFF';
