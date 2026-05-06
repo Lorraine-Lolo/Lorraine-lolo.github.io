@@ -39,14 +39,27 @@
           nextEl.textContent = `Stage ${current.note} | Ends ${new Date(current.end).toLocaleTimeString('en-ZA', {hour: '2-digit', minute:'2-digit'})}`;
         } else {
           fetch('https://api.citypower.co.za/schedule/v2?area=johannesburg-central')
-  .then(response => response.json())
-  .then(data => {
-    // data.schedule contains the stages and times
-    console.log(data.schedule);
+ .then(response => response.json())
+ .then(data => {
+    console.log(data); // check the full structure in console
+    
+    if (data && data.schedule && data.schedule.length > 0) {
+      statusEl.textContent = '✅ POWER ON';
+      statusEl.className = 'status-on';
+      
+      const next = data.schedule[0]; // first upcoming outage
+      nextEl.textContent = next? `Next outage: ${next.start} - ${next.end}` : 'No scheduled outages';
+    } else {
+      statusEl.textContent = '⚠️ POWER OFF';
+      statusEl.className = 'status-off';
+      nextEl.textContent = 'No schedule data available';
+    }
   })
-          statusEl.textContent = '✅ POWER IS ON';
-          const next = data.events.find(e => new Date(e.start) > now);
-          nextEl.textContent = next ? `Next: ${new Date(next.start).toLocaleString('en-ZA', {weekday:'short', hour:'2-digit', minute:'2-digit'})}` : 'No loadshedding scheduled';
+ .catch(error => {
+    console.log('Load shedding API error:', error);
+    statusEl.textContent = '⚠️ API ERROR';
+    nextEl.textContent = 'Could not load schedule';
+  });
         }
 
         } catch (err) {
