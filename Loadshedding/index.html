@@ -24,27 +24,7 @@
     <p style="font-size:12px; opacity:0.6; margin-top:20px">Live EskomSePush API</p>
   </div>
 
-  <script>
-   const TOKEN = '650F94AC-DFE94DBB-9783CDC1-DD518226';
-    const AREA = 'citypower-1-johannesburg-central';
-
-    async function checkLoadshedding() {
-      const statusEl = document.getElementById('status');
-      const nextEl = document.getElementById('next');
-      statusEl.className = 'status loading';
-      statusEl.textContent = 'Checking...';
-      nextEl.textContent = '';
-
-      try {
-      
-  const TOKEN = '650F94AC-DFE94DBB-9783CDC1-DD518226';
-const AREA = 'citypower-1-johannesburg-central';
-const url = `https://corsproxy.io/?${encodeURIComponent(`https://developer.sepush.co.za/business/2.0/area?id=${AREA}`)}`;
-    headers: { 'Authorization': `Token ${TOKEN}` }
-  });
-  
-  if (!res.ok) throw new Error('Proxy failed');
-  const data = await res.json();
+  <p><strong>Backup Power:</strong> Uninterruptible Power Supply (UPS) systems ensure continuous care during load shedding</p>
         
         const now = new Date();
         const current = data.events.find(e => {
