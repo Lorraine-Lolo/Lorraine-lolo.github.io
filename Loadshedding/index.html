@@ -37,48 +37,31 @@
         const current = data.events.find(e => {
           const start = new Date(e.start);
           const end = new Date(e.end);
-          return now >= start && now <= end;
-        });
+        <script>
+const statusEl = document.getElementById('status');
+const nextEl = document.getElementById('next');
 
-        if (current) {
-          statusEl.className = 'status off';
-          statusEl.textContent = '⚠️ POWER IS OFF';
-          nextEl.textContent = `Stage ${current.note} | Ends ${new Date(current.end).toLocaleTimeString('en-ZA', {hour: '2-digit', minute:'2-digit'})}`;
-        } else {
-          fetch('https://api.citypower.co.za/schedule/v2?area=johannesburg-central')
- .then(response => response.json())
- .then(data => {
-    console.log(data); // check the full structure in console
-    
+fetch('https://api.citypower.co.za/schedule/v2?area=johannesburg-central')
+.then(response => response.json())
+.then(data => {
+    console.log('CityPower data:', data);
     if (data && data.schedule && data.schedule.length > 0) {
       statusEl.textContent = '✅ POWER ON';
       statusEl.className = 'status-on';
-      
-      const next = data.schedule[0]; // first upcoming outage
+      const next = data.schedule[0];
       nextEl.textContent = next? `Next outage: ${next.start} - ${next.end}` : 'No scheduled outages';
     } else {
       statusEl.textContent = '⚠️ POWER OFF';
-      statusEl.className = 'status-off';
+      statusEl.className = 'status-off'; 
       nextEl.textContent = 'No schedule data available';
     }
-  })
- .catch(error => {
-    console.log('Load shedding API error:', error);
+})
+.catch(error => {
+    console.log('API error:', error);
     statusEl.textContent = '⚠️ API ERROR';
+    statusEl.className = 'status-off';
     nextEl.textContent = 'Could not load schedule';
-  });
-        }
-
-        } catch (err) {
-    statusEl.className = 'status off';
-    statusEl.textContent = 'Error: ' + err.message;
-    nextEl.textContent = 'API failed - check area ID';
-  }
-  }
-    }
-        checkLoadshedding();
-  </script>
+});
+</script>
 </body>
-</html>
-    
 </html>
