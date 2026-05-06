@@ -11,22 +11,29 @@
     .off { color: #ef4444; }
     .loading { color: #f59e0b; }
     .next { font-size: 15px; opacity: 0.9; margin-top: 8px; }
-    button { background: #3b82f6; color: white; border: none; padding: 12px 24px; 
-             border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 16px; }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>🔌 Lenasia South Loadshedding</h1>
-    <div id="status" class="status loading">Loading...</div>
-    <div id="next" class="next"></div>
-    <button onclick="checkLoadshedding()">Refresh</button>
-    <p style="font-size:12px; opacity:0.6; margin-top:20px">Live EskomSePush API</p>
-  </div>
-
-  <p><strong>Backup Power:</strong> Uninterruptible Power Supply (UPS) systems ensure continuous care during load shedding</p>
-        
-        const AREA = 'citypower-1-johannesburg-central';
+  fetch('https://api.citypower.co.za/schedule/v2?area=johannesburg-central')
+.then(response => response.json())
+.then(data => {
+    console.log('CityPower data:', data); // for debugging
+    
+    if (data && data.schedule && data.schedule.length > 0) {
+      statusEl.textContent = '✅ POWER ON';
+      statusEl.className = 'status-on';
+      
+      const next = data.schedule[0];
+      nextEl.textContent = next? `Next outage: ${next.start} - ${next.end}` : 'No scheduled outages';
+    } else {
+      statusEl.textContent = '⚠️ POWER OFF';
+      statusEl.className = 'status-off'; 
+      nextEl.textContent = 'No schedule data available';
+    }
+  })
+.catch(error => {
+    console.log('API error:', error);
+    statusEl.textContent = '⚠️ API ERROR';
+    statusEl.className = 'status-off';
+    nextEl.textContent = 'Could not load schedule';
+  });
         const current = data.events.find(e => {
           const start = new Date(e.start);
           const end = new Date(e.end);
