@@ -37,13 +37,15 @@
         
         <script>
 const statusEl = document.getElementById('status');
+const <script>
+const statusEl = document.getElementById('status');
 const nextEl = document.getElementById('next');
 
 fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.citypower.co.za/schedule/v2?area=johannesburg-central'))
 .then(response => response.json())
 .then(data => {
     const actualData = JSON.parse(data.contents);
-    console.log('CityPower data:', actualData);
+    alert('API SUCCESS: ' + JSON.stringify(actualData).substring(0, 100)); // Shows first 100 chars of data
     if (actualData && actualData.schedule && actualData.schedule.length > 0) {
       statusEl.textContent = '✅ POWER ON';
       statusEl.className = 'status-on';
@@ -56,7 +58,7 @@ fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.ci
     }
 })
 .catch(error => {
-    console.log('API error:', error);
+    alert('API ERROR: ' + error.message); // This will show the real error on your phone
     statusEl.textContent = '⚠️ API ERROR';
     statusEl.className = 'status-off';
     nextEl.textContent = 'Could not load schedule';
