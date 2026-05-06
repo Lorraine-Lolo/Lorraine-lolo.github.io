@@ -1,68 +1,32 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Loadshedding - Lenasia South</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { font-family: system-ui; background: #0f172a; color: #fff; padding: 20px; text-align: center; }
-    .card { background: #1e293b; padding: 24px; border-radius: 16px; max-width: 400px; margin: 30px auto; }
-    .status { font-size: 26px; font-weight: 700; margin: 16px 0; }
-    .on { color: #22c55e; }
-    .off { color: #ef4444; }
-    .loading { color: #f59e0b; }
-    .next { font-size: 15px; opacity: 0.9; margin-top: 8px; }
-  fetch('https://api.citypower.co.za/schedule/v2?area=johannesburg-central')
-.then(response => response.json())
-.then(data => {
-    console.log('CityPower data:', data); // for debugging
-    
-    if (data && data.schedule && data.schedule.length > 0) {
-      statusEl.textContent = '✅ POWER ON';
-      statusEl.className = 'status-on';
-      
-      const next = data.schedule[0];
-      nextEl.textContent = next? `Next outage: ${next.start} - ${next.end}` : 'No scheduled outages';
-    } else {
-      statusEl.textContent = '⚠️ POWER OFF';
-      statusEl.className = 'status-off'; 
-      nextEl.textContent = 'No schedule data available';
-    }
-  })
-.catch(error => {
-    console.log('API error:', error);
-    statusEl.textContent = '⚠️ API ERROR';
-    statusEl.className = 'status-off';
-    nextEl.textContent = 'Could not load schedule';
-  });
-        
-        <script>
-const statusEl = document.getElementById('status');
-const <script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loadshedding Status</title>
+<style>
+  body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #f5f5f5; }
+  .status-on { color: green; font-size: 48px; font-weight: bold; }
+  .status-off { color: red; font-size: 48px; font-weight: bold; }
+  .status-loading { color: orange; font-size: 48px; font-weight: bold; }
+  .next { font-size: 24px; margin-top: 20px; color: #333; }
+</style>
+</head>
+<body>
+<h1>Johannesburg Loadshedding</h1>
+<div id="status" class="status-loading">LOADING...</div>
+<div id="next" class="next">Checking schedule...</div>
+<div id="time" style="font-size:18px; margin-top:10px; color:#666;"></div>
+
+<script>
 const statusEl = document.getElementById('status');
 const nextEl = document.getElementById('next');
+const timeEl = document.getElementById('time');
+
+timeEl.textContent = 'Time: ' + new Date().toLocaleTimeString();
 
 fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.citypower.co.za/schedule/v2?area=johannesburg-central'))
 .then(response => response.json())
 .then(data => {
     const actualData = JSON.parse(data.contents);
-    alert('API SUCCESS: ' + JSON.stringify(actualData).substring(0, 100)); // Shows first 100 chars of data
-    if (actualData && actualData.schedule && actualData.schedule.length > 0) {
-      statusEl.textContent = '✅ POWER ON';
-      statusEl.className = 'status-on';
-      const next = actualData.schedule[0];
-      nextEl.textContent = next? `Next outage: ${next.start} - ${next.end}` : 'No scheduled outages';
-    } else {
-      statusEl.textContent = '⚠️ POWER OFF';
-      statusEl.className = 'status-off'; 
-      nextEl.textContent = 'No schedule data available';
-    }
-})
-.catch(error => {
-    alert('API ERROR: ' + error.message); // This will show the real error on your phone
-    statusEl.textContent = '⚠️ API ERROR';
-    statusEl.className = 'status-off';
-    nextEl.textContent = 'Could not load schedule';
-});
-</script>
-</body>
-</html>
