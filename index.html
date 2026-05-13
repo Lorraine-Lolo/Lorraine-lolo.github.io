@@ -96,6 +96,31 @@ body {
   font-size: 14px;
   margin: 10px 0;
 }  
+       .demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+.demo-card {
+  background: #1a1a1a;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+}
+.demo-card h4 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #ccc;
+}
+
+/* 1. Pulse Button */
+.btn-pulse {
+  padding: 8px 16px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 
     </style>
 </head>
 <body>
@@ -165,8 +190,48 @@ body {
     </div>
   </div>
 
-  <!-
+  <div class="project-card">
+  <h3>Project #5: CSS Animations Showcase</h3>
+  <p>A collection of pure CSS hover effects, loaders, and micro-interactions. No JavaScript needed.</p>
+  <div class="demo-grid">
+    
+    <div class="demo-card">
+      <h4>Pulse Button</h4>
+      <button class="btn-pulse">Hover Me</button>
+    </div>
 
+    <div class="demo-card">
+      <h4>Loading Spinner</h4>
+      <div class="spinner"></div>
+    </div>
+
+    <div class="demo-card">
+      <h4>Card Flip</h4>
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-front">Front</div>
+          <div class="flip-back">Back</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-card">
+      <h4>Typing Text</h4>
+      <p class="typing">Hello World...</p>
+    </div>
+
+    <div class="demo-card">
+      <h4>Floating Icon</h4>
+      <div class="float">⚡</div>
+    </div>
+
+    <div class="demo-card">
+      <h4>Glow Effect</h4>
+      <div class="glow-box">Live</div>
+    </div>
+
+  </div>
+</div>
   <!-- Project #6: Portfolio WhatsApp Integration -->
   <div class="project-card">
   <h3>Project #6: Portfolio UX Update - WhatsApp Integration</h3>
