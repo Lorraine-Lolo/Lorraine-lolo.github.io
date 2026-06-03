@@ -531,18 +531,25 @@ function updateSATime() {
 </a>
     <!-- Project #9: Dark Mode Toggle -->
 <script>
-const toggle = document.getElementById('theme-toggle');
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-const currentTheme = localStorage.getItem('theme') || (prefersDark.matches ? 'dark' : 'light');
-document.documentElement.setAttribute('data-theme', currentTheme);
-toggle.textContent = currentTheme === 'dark' ? '☀️ Light' : '🌙 Dark';
-toggle.addEventListener('click', () => {
-  let theme = document.documentElement.getAttribute('data-theme');
-  theme = theme === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('theme', theme);
-  toggle.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+document.addEventListener('DOMContentLoaded', function() {
+  const toggle = document.getElementById('theme-toggle');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  let currentTheme = localStorage.getItem('theme') || (prefersDark.matches ? 'dark' : 'light');
+  
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  if (toggle) {
+    toggle.textContent = currentTheme === 'dark' ? '☀️ Light' : '🌙 Dark';
+    
+    toggle.addEventListener('click', () => {
+      let theme = document.documentElement.getAttribute('data-theme');
+      theme = theme === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      toggle.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+    });
+  }
 });
+</script>
 </script>
    <h3>Project #10: Mavis Cares and Nurses</h3>
 <p>Professional healthcare website with live GoatCounter analytics. Received traffic from SA, Canada, and US within 72 hours.</p>
