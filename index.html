@@ -5,15 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lorraine Marange | Web Developer & Founder</title>
     <style>
-        :root {
-  --bg: #ffffff;
-  --text: #000000;
-}
-
-[data-theme="dark"] {
-  --bg: #0d1117;
-  --text: #ffffff;
-}
+        6  <title>Lorraine Marange | Web Develo
+  <style>
+    :root {
+     --bg: #ffffff;
+     --text: #111827;
+     --card: #f9fafb;
+    --accent: #2563eb;
+     --border: #e5e7eb;
+  }
+   
+   [data-theme="dark"] {
+    --bg: #0d1117;
+     --text: #e6edf3;
+     --card: #161b22;
+     --accent: #58a6ff;
+     --border: #30363d;
+   }
+   
+   [data-theme="ocean"] { ... }
+   [data-theme="forest"] { ... }
+   
+   body {
+     background: var(--bg);
+    color: var(--text);
+     transition: background 0.3s, color 0.3s;     font-family: system-ui, -app...
+    /* keep the rest of your body styles   }
         body
         {
                 background: var(--bg);
@@ -27,13 +44,7 @@
             padding: 24px 20px 60px; 
             }
 
-:roo
 
-[data-theme="dark"] {
-  --bg: #0d1117;
-  --text: #e6edf3;
-  --card: #161b22;
-}
 
 body {
   background: var(--bg);
@@ -48,7 +59,7 @@ body {
         h2 { 
             font-size: 1.5rem; 
             margin: 2.5rem 0 1rem 0; 
-            border-bottom: 3px solid #0066cc; 
+           border-bottom: 3px solid var(--accent);
             padding-bottom: 8px; 
         }
         h3 {
@@ -56,12 +67,14 @@ body {
             margin: 2rem 0 0.5rem 0;
         }
         p { margin: 0 0 1.2rem 0; }
-        a { 
-            color: #0066cc; 
-            text-decoration: none; 
-            font-weight: 500;
-        }
-        a:hover { text-decoration: underline; }
+      a {
+    color: var(--accent);
+     text-decoration: none;
+   }
+  a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+   }
         .tag { 
             background: #e8f0fe; 
             color: #1967d2;
@@ -525,33 +538,9 @@ function updateSATime() {
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
        width="60" height="60" alt="Chat with Lorraine on WhatsApp">
 </a>
-        <!-- Project #9: Dark Mode Toggle -->
-<button id="theme-toggle">🌙 Dark</button>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const toggle = document.getElementById('theme-toggle');
-  // ... rest of your code   
-    <!-- Project #9: Dark Mode Toggle -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const toggle = document.getElementById('theme-toggle');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-  let currentTheme = localStorage.getItem('theme') || (prefersDark.matches ? 'dark' : 'light');
-  
-  document.documentElement.setAttribute('data-theme', currentTheme);
-  if (toggle) {
-    toggle.textContent = currentTheme === 'dark' ? '☀️ Light' : '🌙 Dark';
     
-    toggle.addEventListener('click', () => {
-      let theme = document.documentElement.getAttribute('data-theme');
-      theme = theme === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-      toggle.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
-    });
-  }
-});
-</script>
+
+    
 
    <h3>Project #10: Mavis Cares and Nurses</h3>
 <p>Professional healthcare website with live GoatCounter analytics. Received traffic from SA, Canada, and US within 72 hours.</p>
