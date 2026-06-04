@@ -5,32 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lorraine Marange | Web Developer & Founder</title>
     <style>
-        6  <title>Lorraine Marange | Web Develo
-  <style>
-    :root {
-     --bg: #ffffff;
-     --text: #111827;
-     --card: #f9fafb;
-    --accent: #2563eb;
-     --border: #e5e7eb;
-  }
-   
-   [data-theme="dark"] {
-    --bg: #0d1117;
-     --text: #e6edf3;
-     --card: #161b22;
-     --accent: #58a6ff;
-     --border: #30363d;
-   }
-   
-   [data-theme="ocean"] { ... }
-   [data-theme="forest"] { ... }
-   
-   body {
-     background: var(--bg);
-    color: var(--text);
-     transition: background 0.3s, color 0.3s;     font-family: system-ui, -app...
-    /* keep the rest of your body styles   }
         body
         {
                 background: var(--bg);
@@ -44,7 +18,17 @@
             padding: 24px 20px 60px; 
             }
 
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --card: #f5f5f5;
+}
 
+[data-theme="dark"] {
+  --bg: #0d1117;
+  --text: #e6edf3;
+  --card: #161b22;
+}
 
 body {
   background: var(--bg);
@@ -59,7 +43,7 @@ body {
         h2 { 
             font-size: 1.5rem; 
             margin: 2.5rem 0 1rem 0; 
-           border-bottom: 3px solid var(--accent);
+            border-bottom: 3px solid #0066cc; 
             padding-bottom: 8px; 
         }
         h3 {
@@ -67,14 +51,12 @@ body {
             margin: 2rem 0 0.5rem 0;
         }
         p { margin: 0 0 1.2rem 0; }
-      a {
-    color: var(--accent);
-     text-decoration: none;
-   }
-  a:hover {
-    opacity: 0.8;
-    text-decoration: underline;
-   }
+        a { 
+            color: #0066cc; 
+            text-decoration: none; 
+            font-weight: 500;
+        }
+        a:hover { text-decoration: underline; }
         .tag { 
             background: #e8f0fe; 
             color: #1967d2;
@@ -291,8 +273,8 @@ body {
 
     
 <!-- === PROJECTS #1-9 SECTION START === -->
-<section id="projects
-  <h2 class="section-title">Projects <span class="badge">10 Complete</span></h2>
+<section id="projects">
+  <h2 class="section-title">Projects <span class="badge">9/100 Complete</span></h2>
 
   <!-- Project #1: First Portfolio Website -->
   <div class="project-card">
@@ -491,11 +473,11 @@ setInterval(() => {
     <p>
         120hr TEFL Certified English Teacher at Native Camp + Certified Caregiver turned developer via BYU-Pathway Worldwide. 
         I finished PC 101 with an A and built my first portfolio from scratch with zero prior experience. 
-        Currently in PC 102. 
+        Currently in PC 102 learning JavaScript.
     </p>
     <p>
         I specialize in shipping fast, mobile-first tools that solve real SA problems: 
-        WhatsApp automation , lead generation for <strong>my company Mavis Cares & Nurses</strong>, and WhatsApp-first UX that survives bad 4G.
+        loadshedding, lead generation for <strong>my company Mavis Cares & Nurses</strong>, and WhatsApp-first UX that survives bad 4G.
     </p>
 
     <p><strong>Links:</strong><br>
@@ -529,7 +511,23 @@ function updateSATime() {
   const now = new Date();
   const saTime = new Date(now.toLocaleString("en-US", {timeZone: "Africa/Johannesburg"}));
   
+  const timeStr = saTime.toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const dateStr = saTime.toLocaleDateString('en-ZA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   
+  document.getElementById('sa-time').textContent = timeStr;
+  document.getElementById('sa-date').textContent = dateStr;
+  
+  const hour = saTime.getHours();
+  const tip = document.getElementById('loadshedding-tip');
+  if (hour >= 18 && hour < 20) {
+    tip.textContent = "⚡ Peak hours: Keep devices charged";
+  } else {
+    tip.textContent = "";
+  }
+}
+updateSATime();
+setInterval(updateSATime, 1000);
+</script>
     <!-- Personal WhatsApp Button -->
 <a id="whatsapp-btn" href="https://wa.me/27616185080?text=Hi%20Lorraine!%20I%20saw%20your%20portfolio%20and%20wanted%20to%20connect." 
    target="_blank"
@@ -538,30 +536,20 @@ function updateSATime() {
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
        width="60" height="60" alt="Chat with Lorraine on WhatsApp">
 </a>
-    
-
-    
-
-   <h3>Project #10: Mavis Cares and Nurses</h3>
-<p>Professional healthcare website with live GoatCounter analytics. Received traffic from SA, Canada, and US within 72 hours.</p>
-
-<p><strong>Tech:</strong> HTML5, CSS3, GitHub Pages, GoatCounter</p>
-<p>
-  <a href="https://maviscaresandnurses.co.za/" target="_blank">Live Site</a> | 
-  <a href="https://mavis-lorraine.goatcounter.com" target="_blank">View Traffic Proof</a>
-</p>
-<br><br>
-
-<h3>Project #11: Faith In God Intl Ministries</h3>
-<p>
-Responsive church website built for a local ministry. Fixed critical UX issue where global centering made text unreadable on mobile. Implemented CSS overrides to left-align content while preserving centered headings for visual hierarchy.
-</p>
-
-<p><strong>Tech:</strong> HTML5, CSS3, GitHub Pages</p>
-
-<p>
-  <a href="https://lorraine-lolo.github.io/chosen-generation-assembly" target="_blank">Live Site</a> | 
-  <a href="https://github.com/lorraine-lolo/chosen-generation-assembly" target="_blank">View Code</a>
-</p>
+    <!-- Project #9: Dark Mode Toggle -->
+<script>
+const toggle = document.getElementById('theme-toggle');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+const currentTheme = localStorage.getItem('theme') || (prefersDark.matches ? 'dark' : 'light');
+document.documentElement.setAttribute('data-theme', currentTheme);
+toggle.textContent = currentTheme === 'dark' ? '☀️ Light' : '🌙 Dark';
+toggle.addEventListener('click', () => {
+  let theme = document.documentElement.getAttribute('data-theme');
+  theme = theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  toggle.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+});
+</script>
 </body>
 </html>
